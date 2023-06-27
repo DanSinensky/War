@@ -66,6 +66,7 @@ class Game {
     cards in their deck and ${this.lower.name} has ${this.lower.cards.length} cards in their deck.`)
     this.battle.push(firstDeck.cards.shift(), secondDeck.cards.shift())
     this.higher.pile = this.higher.pile.concat(this.battle)
+    this.battle = []
     if (firstDeck.cards.length === 0) {
       firstDeck.pile.length > 0 ? [firstDeck.cards = firstDeck.cards.concat(firstDeck.pile), firstDeck.pile = []] :
       [this.winner = `${secondDeck.name}`, this.gameEnd()]

@@ -62,9 +62,10 @@ class Game {
      this.war()
     }
     console.log(`${this.higher.name} won the round by playing the ${this.higher.cards[0].rank} of ${this.higher.cards[0].suit}
-    against ${this.lower.name}'s ${this.lower.cards[0].rank} of ${this.lower.cards[0].suit}. ${this.higher.name} has ${this.higher.cards.length} 
-    cards in their deck and ${this.lower.name} has ${this.lower.cards.length} cards in their deck.`)
-    this.battle.push(firstDeck.cards.shift(), secondDeck.cards.shift())
+    against ${this.lower.name}'s ${this.lower.cards[0].rank} of ${this.lower.cards[0].suit}. ${this.higher.name} has ${this.higher.cards.length-1} 
+    cards in their deck and ${this.lower.name} has ${this.lower.cards.length-1} cards in their deck.`)
+    this.battle.push(firstDeck.cards.shift())
+    this.battle.push(secondDeck.cards.shift())
     this.higher.pile = this.higher.pile.concat(this.battle)
     this.battle = []
     if (firstDeck.cards.length === 0) {
@@ -83,7 +84,7 @@ class Game {
     the ${secondDeck.cards[0].rank} of ${secondDeck.cards[0].suit}. This means War!`)
     firstDeck.cards.length < 5 ? [this.winner = `${secondDeck.name}`, this.gameEnd()] :
     secondDeck.cards.length < 5 ? [this.winner = `${firstDeck.name}`, this.gameEnd()] :
-    [this.battle.push(firstDeck.cards.splice(0, 4), secondDeck.cards.splice(0, 4)), this.match()]
+    [this.battle.push(firstDeck.cards.splice(0, 4)), this.battle.push(secondDeck.cards.splice(0, 4)), this.match()]
   }
 
   gameEnd() {

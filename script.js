@@ -54,37 +54,36 @@ class Game {
   }
 
   match() {
-    this.tie = false
-    firstDeck.cards[0].score > secondDeck.cards[0].score ? [this.higher = firstDeck, this.lower = secondDeck] :
-    firstDeck.cards[0].score < secondDeck.cards[0].score ? [this.higher = secondDeck, this.lower = firstDeck] : 
-    [this.tie = true, this.higher = undefined, this.lower = undefined]
-    if (this.tie === true) {
-     this.war()
+    if (firstDeck.cards.length !== 0 && secondDeck.cards.length !== 0) {
+      this.tie = false
+      firstDeck.cards[0].score > secondDeck.cards[0].score ? [this.higher = firstDeck, this.lower = secondDeck] :
+        firstDeck.cards[0].score < secondDeck.cards[0].score ? [this.higher = secondDeck, this.lower = firstDeck] :
+          [this.tie = true, this.higher = undefined, this.lower = undefined]
+      if (this.tie === true) {
+        this.war()
+      }
+      console.log(`${this.higher.name} won the round by playing the ${this.higher.cards[0].rank} of ${this.higher.cards[0].suit} against ${this.lower.name}'s ${this.lower.cards[0].rank} of ${this.lower.cards[0].suit}. ${this.higher.name} has ${this.higher.cards.length - 1} cards in their deck and ${this.lower.name} has ${this.lower.cards.length - 1} cards in their deck.`)
+      this.battle.push(firstDeck.cards.shift())
+      this.battle.push(secondDeck.cards.shift())
+      this.higher.pile = this.higher.pile.concat(this.battle)
+      this.battle = []
+      if (firstDeck.cards.length === 0) {
+        firstDeck.pile.length > 0 ? [firstDeck.cards = firstDeck.cards.concat(firstDeck.pile), firstDeck.pile = []] :
+          [this.winner = `${secondDeck.name}`, this.gameEnd()]
+      }
+      if (secondDeck.cards.length === 0) {
+        secondDeck.pile.length > 0 ? [secondDeck.cards = secondDeck.cards.concat(secondDeck.pile), secondDeck.pile = []] :
+          [this.winner = `${firstDeck.name}`, this.gameEnd()]
+      }
+      this.match()
     }
-    console.log(`${this.higher.name} won the round by playing the ${this.higher.cards[0].rank} of ${this.higher.cards[0].suit}
-    against ${this.lower.name}'s ${this.lower.cards[0].rank} of ${this.lower.cards[0].suit}. ${this.higher.name} has ${this.higher.cards.length-1} 
-    cards in their deck and ${this.lower.name} has ${this.lower.cards.length-1} cards in their deck.`)
-    this.battle.push(firstDeck.cards.shift())
-    this.battle.push(secondDeck.cards.shift())
-    this.higher.pile = this.higher.pile.concat(this.battle)
-    this.battle = []
-    if (firstDeck.cards.length === 0) {
-      firstDeck.pile.length > 0 ? [firstDeck.cards = firstDeck.cards.concat(firstDeck.pile), firstDeck.pile = []] :
-      [this.winner = `${secondDeck.name}`, this.gameEnd()]
-    }
-    if (secondDeck.cards.length === 0) {
-      secondDeck.pile.length > 0 ? [secondDeck.cards = secondDeck.cards.concat(secondDeck.pile), secondDeck.pile = []] :
-      [this.winner = `${firstDeck.name}`, this.gameEnd()]
-    }
-    this.match()
   }
 
   war() {
-    console.log(`${firstDeck.name} played the ${firstDeck.cards[0].rank} of ${firstDeck.cards[0].suit} and ${secondDeck.name} played
-    the ${secondDeck.cards[0].rank} of ${secondDeck.cards[0].suit}. This means War!`)
+    console.log(`${firstDeck.name} played the ${firstDeck.cards[0].rank} of ${firstDeck.cards[0].suit} and ${secondDeck.name} played the ${secondDeck.cards[0].rank} of ${secondDeck.cards[0].suit}. This means War!`)
     firstDeck.cards.length < 5 ? [this.winner = `${secondDeck.name}`, this.gameEnd()] :
     secondDeck.cards.length < 5 ? [this.winner = `${firstDeck.name}`, this.gameEnd()] :
-    [this.battle.push(firstDeck.cards.splice(0, 4)), this.battle.push(secondDeck.cards.splice(0, 4)), this.match()]
+    [this.battle = this.battle.concat(firstDeck.cards.splice(0, 4)), this.battle = this.battle.concat(secondDeck.cards.splice(0, 4)), this.match()]
   }
 
   gameEnd() {

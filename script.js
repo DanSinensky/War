@@ -75,7 +75,6 @@ class Game {
         secondDeck.pile.length > 0 ? [secondDeck.cards = secondDeck.cards.concat(secondDeck.pile), secondDeck.pile = []] :
           [this.winner = `${firstDeck.name}`, this.gameEnd()]
       }
-      this.match()
     }
   }
 
@@ -88,6 +87,7 @@ class Game {
 
   gameEnd() {
     console.log(`${this.winner} won!`)
+    this.over = true
   }
 }
 
@@ -99,4 +99,6 @@ for (let i = 0; i < 26; i++){
   secondDeck.cards.push(firstDeck.cards.pop())
 }
 console.log(firstDeck, secondDeck)
-game.match()
+while (game.over === false) {
+  game.match()
+}

@@ -41,5 +41,10 @@ class Deck {
   }
 }
 
-let someDeck = new Deck()
-console.log(someDeck)
+let firstDeck = new Deck()
+let secondDeck = new Deck()
+secondDeck.cards = []
+for (let i = 0; i < 26; i++){
+  secondDeck.cards.push(firstDeck.cards.pop())
+}
+console.log(firstDeck, secondDeck)

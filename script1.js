@@ -1,5 +1,5 @@
 class Card {
-  constructor(suit, rank, score){
+  constructor(suit, rank, score) {
     this.suit = suit
     this.rank = rank
     this.score = score
@@ -14,12 +14,12 @@ class Deck {
     this.createDeck()
   }
 
-  createDeck(){
+  createDeck() {
     const suits = ["Hearts", "Spades", "Clubs", "Diamonds"]
     const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
 
-    for (let i = 0; i < suits.length; i++){
-      for (let j = 0; j < ranks.length; j++){
+    for (let i = 0; i < suits.length; i++) {
+      for (let j = 0; j < ranks.length; j++) {
         let card = new Card(suits[i], ranks[j], j + 2)
         this.cards.push(card)
       }
@@ -28,7 +28,7 @@ class Deck {
     this.shuffle()
   }
 
-  shuffle(){
+  shuffle() {
     const cards = this.cards
     for (let i = cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -52,8 +52,9 @@ class Game {
   }
 
   gameSetup() {
-    const {cards } = new Deck()
-    console.log(cards)
+    const { cards } = new Deck()
+    this.p1.push(...cards.splice(0, 26))
+    this.p2.push(...cards)
   }
 }
 

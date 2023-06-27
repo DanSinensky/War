@@ -81,8 +81,8 @@ class Game {
   war() {
     console.log(`${firstDeck.name} played the ${firstDeck.cards[0].rank} of ${firstDeck.cards[0].suit} and ${secondDeck.name} played
     the ${secondDeck.cards[0].rank} of ${secondDeck.cards[0].suit}. This means War!`)
-    firstDeck.cards.length < 4 ? [this.winner = `${secondDeck.name}`, this.gameEnd()] :
-    secondDeck.cards.length < 4 ? [this.winner = `${firstDeck.name}`, this.gameEnd()] :
+    firstDeck.cards.length < 5 ? [this.winner = `${secondDeck.name}`, this.gameEnd()] :
+    secondDeck.cards.length < 5 ? [this.winner = `${firstDeck.name}`, this.gameEnd()] :
     [this.battle.push(firstDeck.cards.splice(0, 4), secondDeck.cards.splice(0, 4)), this.match()]
   }
 

@@ -46,26 +46,39 @@ class Deck {
 class Game {
   constructor() {
     this.winner = undefined
-    this.loser = undefined
+    this.higher = undefined
+    this.lower = undefined
+    this.tie = false
     this.battle = []
+    this.over = false
   }
 
   match() {
-    let winner
-    let loser
-    let tie = false
-    firstDeck.cards[0].score > secondDeck.cards[0].score ? [this.winner = firstDeck, this.loser = secondDeck] :
-    firstDeck.cards[0].score < secondDeck.cards[0].score ? [this.winner = secondDeck, this.loser = firstDeck] : 
-    tie = true
-    if (tie = true) {
-   //   this.war()
+    this.tie = false
+    firstDeck.cards[0].score > secondDeck.cards[0].score ? [this.higher = firstDeck, this.lower = secondDeck] :
+    firstDeck.cards[0].score < secondDeck.cards[0].score ? [this.higher = secondDeck, this.lower = firstDeck] : 
+    [this.tie = true, this.higher = undefined, this.lower = undefined]
+    if (this.tie === true) {
+     this.war()
     }
-    console.log(`${this.winner.name} won by playing the ${this.winner.cards[0].rank} of ${this.winner.cards[0].suit}
-    against ${this.loser.name}'s ${this.loser.cards[0].rank} of ${this.loser.cards[0].suit}. Player One has ${firstDeck.cards.length} 
+    console.log(`${this.higher.name} won by playing the ${this.higher.cards[0].rank} of ${this.higher.cards[0].suit}
+    against ${this.lower.name}'s ${this.lower.cards[0].rank} of ${this.lower.cards[0].suit}. Player One has ${firstDeck.cards.length} 
     cards in their deck and Player Two has ${secondDeck.cards.length} cards in their deck.`)
-    this.battle.push(this.winner.cards.shift(), this.loser.cards.shift())
-    this.winner.pile = this.winner.pile.concat(this.battle)
-    console.log(firstDeck.pile, secondDeck.pile)
+    this.battle.push(this.higher.cards.shift(), this.lower.cards.shift())
+    this.higher.pile = this.higher.pile.concat(this.battle)
+    this.match()
+  }
+
+  war() {
+    console.log(`Player One played the ${firstDeck.cards[0].rank} of ${firstDeck.cards[0].suit} and Player Two played
+    the ${secondDeck.cards[0].rank} of ${secondDeck.cards[0].suit}. This means War!`)
+    firstDeck.cards.length < 4 ? this.winner = "Player Two" : secondDeck.cards.length < 4 ? this.winner = "Player One" :
+      this.battle.push(firstDeck.cards.shift(3), secondDeck.cards.shift(3))
+    this.winner !== undefined ? [console.log("3"), console.log("2"), console.log("1"), this.match()] : this.gameEnd()
+  }
+
+  gameEnd() {
+    console.log(`${this.winner} won!`)
   }
 }
 
